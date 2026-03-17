@@ -40,7 +40,8 @@ export async function saveOfflineReport(report: Omit<OfflineReport, 'synced'>) {
 
 export async function getUnsyncedReports(): Promise<OfflineReport[]> {
   const db = await getDB();
-  return db.getAllFromIndex('offline_reports', 'synced', false);
+  const all = await db.getAll('offline_reports');
+  return all.filter((r: any) => !r.synced);
 }
 
 export async function markReportSynced(id: string) {
