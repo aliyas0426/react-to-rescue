@@ -1,11 +1,5 @@
-// Update this page (the content is just a fallback if you fail to update the page)
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import Dashboard from './Dashboard';
 
-const Index = () => {
-  const navigate = useNavigate();
-  useEffect(() => { navigate('/', { replace: true }); }, []);
-  return null;
-};
-
-export default Index;
+export default function Index() {
+  return <Dashboard />;
+}
