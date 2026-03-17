@@ -14,16 +14,271 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      alerts: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          disaster_type: Database["public"]["Enums"]["disaster_type"] | null
+          expires_at: string | null
+          id: string
+          is_active: boolean
+          location_lat: number | null
+          location_lng: number | null
+          message: string
+          radius_km: number | null
+          severity: Database["public"]["Enums"]["disaster_severity"]
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          disaster_type?: Database["public"]["Enums"]["disaster_type"] | null
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean
+          location_lat?: number | null
+          location_lng?: number | null
+          message: string
+          radius_km?: number | null
+          severity?: Database["public"]["Enums"]["disaster_severity"]
+          title: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          disaster_type?: Database["public"]["Enums"]["disaster_type"] | null
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean
+          location_lat?: number | null
+          location_lng?: number | null
+          message?: string
+          radius_km?: number | null
+          severity?: Database["public"]["Enums"]["disaster_severity"]
+          title?: string
+        }
+        Relationships: []
+      }
+      disaster_reports: {
+        Row: {
+          created_at: string
+          description: string
+          disaster_type: Database["public"]["Enums"]["disaster_type"]
+          id: string
+          image_url: string | null
+          location_lat: number
+          location_lng: number
+          location_name: string | null
+          severity: Database["public"]["Enums"]["disaster_severity"]
+          status: Database["public"]["Enums"]["disaster_status"]
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          disaster_type?: Database["public"]["Enums"]["disaster_type"]
+          id?: string
+          image_url?: string | null
+          location_lat: number
+          location_lng: number
+          location_name?: string | null
+          severity?: Database["public"]["Enums"]["disaster_severity"]
+          status?: Database["public"]["Enums"]["disaster_status"]
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          disaster_type?: Database["public"]["Enums"]["disaster_type"]
+          id?: string
+          image_url?: string | null
+          location_lat?: number
+          location_lng?: number
+          location_name?: string | null
+          severity?: Database["public"]["Enums"]["disaster_severity"]
+          status?: Database["public"]["Enums"]["disaster_status"]
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      predictions: {
+        Row: {
+          created_at: string
+          description: string | null
+          disaster_type: Database["public"]["Enums"]["disaster_type"]
+          id: string
+          location_lat: number
+          location_lng: number
+          location_name: string | null
+          predicted_date: string | null
+          probability: number
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          disaster_type: Database["public"]["Enums"]["disaster_type"]
+          id?: string
+          location_lat: number
+          location_lng: number
+          location_name?: string | null
+          predicted_date?: string | null
+          probability: number
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          disaster_type?: Database["public"]["Enums"]["disaster_type"]
+          id?: string
+          location_lat?: number
+          location_lng?: number
+          location_name?: string | null
+          predicted_date?: string | null
+          probability?: number
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          location_lat: number | null
+          location_lng: number | null
+          phone: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          location_lat?: number | null
+          location_lng?: number | null
+          phone?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          location_lat?: number | null
+          location_lng?: number | null
+          phone?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      resources: {
+        Row: {
+          address: string | null
+          capacity: number | null
+          created_at: string
+          description: string | null
+          id: string
+          is_available: boolean
+          location_lat: number
+          location_lng: number
+          name: string
+          phone: string | null
+          resource_type: Database["public"]["Enums"]["resource_type"]
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          capacity?: number | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_available?: boolean
+          location_lat: number
+          location_lng: number
+          name: string
+          phone?: string | null
+          resource_type: Database["public"]["Enums"]["resource_type"]
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          capacity?: number | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_available?: boolean
+          location_lat?: number
+          location_lng?: number
+          name?: string
+          phone?: string | null
+          resource_type?: Database["public"]["Enums"]["resource_type"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
+      disaster_severity: "low" | "medium" | "high" | "critical"
+      disaster_status: "pending" | "approved" | "rejected" | "resolved"
+      disaster_type:
+        | "earthquake"
+        | "flood"
+        | "fire"
+        | "hurricane"
+        | "tornado"
+        | "tsunami"
+        | "landslide"
+        | "drought"
+        | "other"
+      resource_type:
+        | "hospital"
+        | "shelter"
+        | "food_center"
+        | "fire_station"
+        | "police_station"
+        | "other"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +405,29 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+      disaster_severity: ["low", "medium", "high", "critical"],
+      disaster_status: ["pending", "approved", "rejected", "resolved"],
+      disaster_type: [
+        "earthquake",
+        "flood",
+        "fire",
+        "hurricane",
+        "tornado",
+        "tsunami",
+        "landslide",
+        "drought",
+        "other",
+      ],
+      resource_type: [
+        "hospital",
+        "shelter",
+        "food_center",
+        "fire_station",
+        "police_station",
+        "other",
+      ],
+    },
   },
 } as const
