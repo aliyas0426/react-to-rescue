@@ -4,6 +4,7 @@ import { useAlerts } from '@/hooks/useAlerts';
 import { useOnlineStatus } from '@/hooks/useOnlineStatus';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import {
   LayoutDashboard, MapPin, FileText, Shield, Package, Phone,
   Bell, LogOut, Menu, X, Wifi, WifiOff, User
@@ -99,6 +100,7 @@ export function Layout({ children }: { children: ReactNode }) {
           </button>
 
           <div className="flex items-center gap-3 ml-auto">
+            <ThemeToggle />
             {criticalAlerts.length > 0 && (
               <Badge variant="destructive" className="animate-pulse">
                 <Bell className="w-3 h-3 mr-1" /> {criticalAlerts.length} Alert{criticalAlerts.length > 1 ? 's' : ''}
