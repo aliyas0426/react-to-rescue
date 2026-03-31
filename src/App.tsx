@@ -1,10 +1,14 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { ThemeProvider } from "next-themes";
+import { AnimatePresence } from "framer-motion";
 import { AuthProvider, useAuth } from "@/hooks/useAuth";
 import { Layout } from "@/components/Layout";
+import { AIChatbot } from "@/components/AIChatbot";
+import { PageTransition } from "@/components/PageTransition";
 import Dashboard from "./pages/Dashboard";
 import MapPage from "./pages/MapPage";
 import Reports from "./pages/Reports";
@@ -18,6 +22,8 @@ const queryClient = new QueryClient();
 
 function AppRoutes() {
   const { loading } = useAuth();
+  const location = useLocation();
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -27,31 +33,38 @@ function AppRoutes() {
   }
 
   return (
-    <Routes>
-      <Route path="/auth" element={<Auth />} />
-      <Route path="/" element={<Layout><Dashboard /></Layout>} />
-      <Route path="/map" element={<Layout><MapPage /></Layout>} />
-      <Route path="/reports" element={<Layout><Reports /></Layout>} />
-      <Route path="/resources" element={<Layout><Resources /></Layout>} />
-      <Route path="/emergency" element={<Layout><Emergency /></Layout>} />
-      <Route path="/admin" element={<Layout><Admin /></Layout>} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <>
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/auth" element={<PageTransition><Auth /></PageTransition>} />
+          <Route path="/" element={<Layout><PageTransition><Dashboard /></PageTransition></Layout>} />
+          <Route path="/map" element={<Layout><PageTransition><MapPage /></PageTransition></Layout>} />
+          <Route path="/reports" element={<Layout><PageTransition><Reports /></PageTransition></Layout>} />
+          <Route path="/resources" element={<Layout><PageTransition><Resources /></PageTransition></Layout>} />
+          <Route path="/emergency" element={<Layout><PageTransition><Emergency /></PageTransition></Layout>} />
+          <Route path="/admin" element={<Layout><PageTransition><Admin /></PageTransition></Layout>} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </AnimatePresence>
+      <AIChatbot />
+    </>
   );
 }
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <AuthProvider>
-          <AppRoutes />
-        </AuthProvider>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <AuthProvider>
+            <AppRoutes />
+          </AuthProvider>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </ThemeProvider>
 );
 
 export default App;
