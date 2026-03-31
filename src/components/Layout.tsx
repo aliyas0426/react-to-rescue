@@ -4,6 +4,7 @@ import { useAlerts } from '@/hooks/useAlerts';
 import { useOnlineStatus } from '@/hooks/useOnlineStatus';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import {
   LayoutDashboard, MapPin, FileText, Shield, Package, Phone,
   Bell, LogOut, Menu, X, Wifi, WifiOff, User
